@@ -18,22 +18,44 @@ weatherApp.config(function($routeProvider){
 
 });
 
+// Custom Scope
+weatherApp.service('placeService', function(){
+
+	var self = this;
+
+	self.cityName = 'San Francisco, CA';
+
+});
+
 
 // HomePage controller
-weatherApp.controller('homeController', ['$scope','$log',function($scope,$log){
+weatherApp.controller('homeController', ['$scope','placeService','$log',function($scope, placeService, $log){
 
-	$scope.say = 'homePageController'
-	//$log.log($scope.say);
+
+	$scope.cityName = placeService.cityName;
+
+	$scope.$watch('cityName',function(){
+
+		placeService.cityName = $scope.cityName;
+
+	});
+
+
 
 }]);
 
 
 
 // Forcast controller
-weatherApp.controller('forcastController', ['$scope','$log',function($scope,$log){
+weatherApp.controller('forcastController', ['$scope','placeService','$log',function($scope, placeService, $log){
 
-
+	$scope.cityName = placeService.cityName;
 
 }]);
+
+
+
+
+
 
 
