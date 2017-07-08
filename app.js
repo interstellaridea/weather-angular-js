@@ -7,11 +7,11 @@ var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngResource']);
 weatherApp.config(function($routeProvider){
 	$routeProvider
 		.when('/',{
-			templateUrl: '/pages/home.htm',
+			templateUrl: 'pages/home.htm',
 			controller: 'homeController'
 		})
 		.when('/forcast',{
-			templateUrl: '/pages/forcast.htm',
+			templateUrl: 'pages/forcast.htm',
 			controller: 'forcastController'
 		})
 
