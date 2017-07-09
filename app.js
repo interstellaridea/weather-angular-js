@@ -38,19 +38,14 @@ weatherApp.service('placeService', function(){
 // HomePage controller
 weatherApp.controller('homeController', ['$scope','placeService','$log',function($scope, placeService, $log){
 
-
 	$scope.cityName = placeService.cityName;
-
 	$scope.$watch('cityName',function(){
 
 		placeService.cityName = $scope.cityName;
 
 	});
 
-
-
 }]);
-
 
 
 // Forcast controller
@@ -58,8 +53,7 @@ weatherApp.controller('forcastController', ['$scope','$resource','$routeParams',
 	function($scope, $resource, $routeParams, placeService){
 
 	$scope.cityName = placeService.cityName;
-
-	$scope.days = $routeParams.days || 2;
+	$scope.days = $routeParams.days || '2';
 
 	$scope.weatherAPI =
 		$resource(baseUrl, {
@@ -71,7 +65,7 @@ weatherApp.controller('forcastController', ['$scope','$resource','$routeParams',
 		q: $scope.cityName,
 		cnt: $scope.days });
 
-	$scope.convertToFarenheit = function(degK){
+	$scope.convertToFahrenheit = function(degK){
 		return Math.round((1.8 * (degK - 273) + 32));
 	}
 
@@ -83,7 +77,20 @@ weatherApp.controller('forcastController', ['$scope','$resource','$routeParams',
 }]);
 
 
-
+// Custom Directives
+weatherApp.directive('weatherResults', function(){
+	return {
+		restrict: 'E', // HTML only elemets
+		templateUrl: 'directives/weatherResults.htm',
+		replace: true,
+		scope: { // pass whole object to directive
+			weatherObject: '=', // two way binding
+			convertToStandard: '&',
+			convertToDate: '&',
+			dateFormat: '@'
+		}
+	}
+});
 
 
 
